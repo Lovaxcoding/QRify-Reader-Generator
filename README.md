@@ -24,9 +24,24 @@ Icônes SVG claires et accessibles pour un look professionnel
 
 Responsivité assurée pour tous les types d’écrans 📱💻
 
+--- 
+
+## 🛠️ Technologies utilisées
+
+- **Python 3** – Langage principal  
+- **Flask** – Framework web léger et performant  
+- **qrcode** – Génération de QR Codes  
+- **pyzbar** – Décodage des QR Codes  
+- **OpenCV** – Traitement d’image pour la lecture  
+- **HTML / CSS / JavaScript** – Frontend moderne avec mode sombre et animations  
+
+---
+
 ## 🤝 Contribution
 Les contributions sont les bienvenues !
 N’hésitez pas à ouvrir une issue ou une pull request pour proposer vos idées ou corrections.
+
+---
 
 ## 📄 Licence
 MIT © 2025 Lovasoa Nantenaina
