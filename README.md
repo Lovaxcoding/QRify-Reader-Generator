@@ -1,0 +1,1 @@
+# QRify-Reader-Generator
