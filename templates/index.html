@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>QR Code App</title>
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #e0e7ff;
+            --background-color: #f9fafb;
+            --text-color: #1f2937;
+            --card-bg: white;
+        }
+
+        body.dark {
+            --background-color: #1f2937;
+            --text-color: #f3f4f6;
+            --card-bg: #374151;
+            --secondary-color: #4b5563;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--background-color);
+            color: var(--text-color);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background 0.3s, color 0.3s;
+            width : 100%;
+            height: 100vh;
+            overflow: hidden;  
+            position: relative;
+            justify-content: center;
+            text-align: center;
+            
+        }
+
+        h1, h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .toggle-btns {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .toggle-btns button {
+            padding: 10px 20px;
+            font-weight: bold;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            background-color: var(--primary-color);
+            color: white;
+            transition: background 0.3s;
+        }
+
+        .toggle-btns button:hover {
+            background-color: #4338ca;
+        }
+
+        form {
+            background: var(--card-bg);
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 500px;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        form.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 12px;
+        }
+
+        button[type="submit"] {
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            transform: scale(1.05);
+        }
+
+        img {
+            margin-top: 20px;
+            max-width: 200px;
+            border-radius: 12px;
+        }
+
+        ul {
+            margin-top: 20px;
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 10px;
+            border-radius: 10px;
+            background: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        .toggle-btns svg {
+    vertical-align: middle;
+}
+
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>QRify : tout en 1</h1>
+
+    <div class="toggle-btns">
+    <button onclick="toggleForm('generate')" title="Générer un QR Code">
+        <!-- Icone Générer -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text" style="margin-right: 5px;">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+            <line x1="10" y1="9" x2="8" y2="9"/>
+        </svg>
+        Générer
+    </button>
+
+    <button onclick="toggleForm('read')" title="Scanner un QR Code">
+        <!-- Icone Scanner -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-camera" style="margin-right: 5px;">
+            <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+            <circle cx="12" cy="13" r="4"/>
+        </svg>
+        Scanner
+    </button>
+
+    <button onclick="toggleDarkMode()" title="Changer de mode">
+        <!-- Icone Mode sombre -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon" style="margin-right: 5px;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
+        </svg>
+        Mode
+    </button>
+</div>
+
+    <!-- Formulaire de génération -->
+    <form id="generate-form" class="active" action="/generate" method="post">
+        <input type="text" name="data" placeholder="Entrez le texte à encoder..." required>
+        <button type="submit">Générer QR Code</button>
+    </form>
+
+    {% if qr_image %}
+        <h2>✅ QR Code généré pour : <br> <em>{{ data }}</em></h2>
+        <img src="{{ url_for('static', filename='qrcode.png') }}" alt="QR Code">
+    {% endif %}
+
+    <!-- Formulaire de lecture -->
+    <form id="read-form" action="/read" method="post" enctype="multipart/form-data">
+        <input type="file" name="qr_image" accept="image/*" required>
+        <button type="submit">Lire QR Code</button>
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    <li style="color: {% if category == 'error' %}crimson{% else %}lightgreen{% endif %};">
+                        {{ message }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <script>
+        function toggleForm(form) {
+            const generate = document.getElementById('generate-form');
+            const read = document.getElementById('read-form');
+            generate.classList.remove('active');
+            read.classList.remove('active');
+
+            if (form === 'generate') {
+                generate.classList.add('active');
+            } else {
+                read.classList.add('active');
+            }
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+        }
+    </script>
+</body>
+</html>
