@@ -37,6 +37,14 @@ Responsivité assurée pour tous les types d’écrans 📱💻
 
 ---
 
+🖼️ Aperçu
+
+![image](https://github.com/user-attachments/assets/4ce2aac0-ef47-4fa1-9f7f-d05e94342854)
+![image](https://github.com/user-attachments/assets/cb6db5e5-d5d1-402c-afae-f3f2ee793010)
+![image](https://github.com/user-attachments/assets/4d5d97bb-cfbd-47f6-88d4-3a80c65d4cfd)
+
+
+---
 ## 🤝 Contribution
 Les contributions sont les bienvenues !
 N’hésitez pas à ouvrir une issue ou une pull request pour proposer vos idées ou corrections.
